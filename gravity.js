@@ -86,7 +86,7 @@
         leftAcceleration = gravitationalAcceleration(left, right);
         rightAcceleration = {
           x: -leftAcceleration.x,
-          y: -leftAcceleration.x
+          y: -leftAcceleration.y
         };
         accelerations[left.id].push(leftAcceleration);
         accelerations[right.id].push(rightAcceleration);
