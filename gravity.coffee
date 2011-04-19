@@ -86,7 +86,19 @@ run = (sim) =>
 		draw(sim)
 	setInterval(runfunc, 1 / settings.step)
 
+parseHash = =>
+	hash = window.location.hash
+	return if hash.length < 2
+	for part in hash.substr(1).split('&')
+		pair = part.split('=')
+		if pair.length == 2
+			key   = pair[0]
+			value = pair[1]
+			if key == 'num'
+				settings.numBodies = parseInt(value, 10)
+
 $ =>
+	parseHash()
 	sim = {}
 	sim.canvas  = $('.game').get(0) 
 	sim.context = sim.canvas.getContext('2d')

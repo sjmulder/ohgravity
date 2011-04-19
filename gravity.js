@@ -1,5 +1,5 @@
 (function() {
-  var applyAcceleration, draw, gravitationalAcceleration, rand, run, seedBodies, settings, sim, step, wrapBody;
+  var applyAcceleration, draw, gravitationalAcceleration, parseHash, rand, run, seedBodies, settings, sim, step, wrapBody;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   settings = {
     numBodies: 20,
@@ -130,7 +130,23 @@
     }, this);
     return setInterval(runfunc, 1 / settings.step);
   }, this);
+  parseHash = __bind(function() {
+    var hash, key, pair, part, value, _i, _len, _ref, _results;
+    hash = window.location.hash;
+    if (hash.length < 2) {
+      return;
+    }
+    _ref = hash.substr(1).split('&');
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      part = _ref[_i];
+      pair = part.split('=');
+      _results.push(pair.length === 2 ? (key = pair[0], value = pair[1], key === 'num' ? settings.numBodies = parseInt(value, 10) : void 0) : void 0);
+    }
+    return _results;
+  }, this);
   $(__bind(function() {
+    parseHash();
     sim = {};
     sim.canvas = $('.game').get(0);
     sim.context = sim.canvas.getContext('2d');
